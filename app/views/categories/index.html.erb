@@ -1,0 +1,24 @@
+<p style="color: green"><%= notice %></p>
+
+<p class="h2">Категорії витрат</p>
+<br>
+  <table class="table table-striped table-hover">
+    <thead class="table-light">
+      <tr>
+        <th class="col-md-2">Назва категорії</th>
+        <th class="col-md-6">Опис</th>
+        <th class="col-md-1">Управління</th>
+      </tr>
+    </thead>
+    <tbody>
+      <div id="categories">
+        <% @categories.each do |category| %>
+        <%= render category %>
+        <% end %>
+      </div>
+    </tbody>
+  </table>
+
+  <%= paginate @categories %>
+
+<%= link_to "Додати нову категорію", new_category_path, class: "btn btn-outline-primary" %>
