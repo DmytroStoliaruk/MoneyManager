@@ -1,2 +1,109 @@
-<h1>Reports#report_by_dates</h1>
-<p>Find me in app/views/reports/report_by_dates.html.erb</p>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-3">
+        <div class="h4 text-center text-primary" id="welcome_text">
+          <!-- this is area for welcome text (olny for main page)  --> 
+        </div>
+        <div id="form_area_Id">
+          <%= form_tag reports_report_by_dates_path, method: :get do %>
+            <%= label_tag :start_date, "Дата початку періоду:", class: "form-text" %>
+            <%= date_field_tag :start_date, params[:start_date], class: "form-text" %>
+            <%= label_tag :end_date, "Дата кінця періоду:", class: "form-text"%>
+            <%= date_field_tag :end_date, params[:end_date], class: "form-text" %>
+            <br><br>
+            <%= submit_tag "Звіт по датах", class: "btn btn-outline-primary" %>
+          <% end %>
+          <br>
+
+          <table class="table table-striped table-hover">
+            <thead class="table-light">
+              <tr>
+                <th class="col-md-4">Категорія</th>
+                <th class="col-md-1">Сума</th>
+              </tr>
+            </thead>
+            <tbody>
+              <div id="operations_by_categories">
+                <% @operations_by_categories.each do |o| %>
+                <tr>
+                  <td><%= o[0] %></td>
+                  <td><%= o[1] %></td>  
+                </tr>
+                <% end %>
+                <tr>
+                  <td colspan="2"><b>Всього: <%= @total_sum_amount_by_date %> грн.</b></td>
+                </tr>
+              </div>
+            </tbody>
+          </table>  
+        </div>  
+      </div>
+
+      <div class="col-9">
+        <canvas id="myChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const ctx = document.getElementById('myChart');
+  
+  var backgroundColors = generateRandomColors(<%= raw @category_name.count %>);
+
+  const data = {
+    labels: <%= raw @category_name %>,
+    datasets: [{
+      data: <%= @sum_amount %>,
+      backgroundColor: backgroundColors,
+    }]
+  };
+
+  const config = {
+    type: 'pie',
+    data: data,
+    options: {
+      responsive: true,
+      aspectRatio: 2,
+      plugins: {
+        legend: {
+          position: 'right',
+        },
+        title: {
+          display: true,
+          text: 'Витрати за період з <%= params[:start_date] %> по <%= params[:end_date] %> в розрізі категорій'
+        }
+      }
+    }
+  };
+
+  const myChart = new Chart(ctx, config);
+
+
+  function generateRandomColors(count) {
+    var colors = [];
+    for (var i = 0; i < count; i++) {
+      var color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+      colors.push(color);
+    }
+    return colors;
+  };
+
+
+  // this code change view this page for main page of application 
+  const welcome_text="Якщо Ви бажаєте\n навести лад в своїх фінансах, зрозуміти куди зникають гроші -\n Вам \
+                      потрібен персональний менеджер фінансів.\n\n Додавайте поточні витрати в \
+                      додатку, формуйте звіти по категоріях витрат за будь-який період, робіть висновки...\n\n \
+                      Фіксуйте...\n аналізуйте...\n оптимізуйте...";
+  var element = document.getElementById("form_area_Id");
+  var param_index_page = '<%= params[:index_page] %>';
+  if ( param_index_page ) {
+    element.style.display = "none";
+    element = document.getElementById("welcome_text");
+    element.innerText = welcome_text;
+  } else {
+    element.style.visibility = "visible";
+    element = document.getElementById("welcome_text");
+    element.innerText = "";
+  };
+</script>
+

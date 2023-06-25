@@ -3,4 +3,6 @@ class Operation < ApplicationRecord
   validates :amount, numericality: {greater_than: 0}
   validates :odate, presence: true
   validates :description, presence: true
+
+  paginates_per 10
 end

@@ -1,10 +1,10 @@
 <%= form_with(model: @category) do |form| %>
 
   <%= form.label "Назва категорії ", style: "display: block" %>   
-  <%= form.text_field :name, class: "form-text w-25" %>
+  <%= form.text_field :name, required: true, class: "form-text w-25" %>
 
   <%= form.label "Опис категорії ", style: "display: block" %>
-  <%= form.text_field :description, class: "form-text w-75" %>
+  <%= form.text_field :description, required: true, class: "form-text w-75" %>
   <br>
   <br>
   <%= form.submit "Зберегти", class: "btn btn-outline-primary" %>

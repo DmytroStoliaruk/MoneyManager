@@ -1,9 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="<%= main_index_path %>">Головна сторінка</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class="navbar-brand" href="<%= main_index_path %>"><i class="fa fa-institution"></i></a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
@@ -12,12 +9,9 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="<%= operations_path %>">Операції</a>
         </li>  
-        <li class="nav-item">
-          <a class="nav-link" href="<%= reports_index_path %>">Генератор звітів</a>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Звіти
+            Генератор звітів
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="<%= reports_report_by_category_path %>">Звіт по категоріях</a></li>
@@ -25,14 +19,7 @@
             <li><a class="dropdown-item" href="<%= reports_report_by_dates_path %>">Звіт за період</a></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
-        </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Що шукаємо?" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Пошук</button>
-      </form>
     </div>
   </div>
 </nav>

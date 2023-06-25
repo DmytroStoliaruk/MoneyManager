@@ -1,14 +1,46 @@
-<p style="color: green"><%= notice %></p>
+<script>
+  $(document).ready(function() {
+    $('#operation_category_id').change(function() {
+      var selectedValue = $(this).val();
+      window.location.href = "/operations?category_id=" + selectedValue; 
+    });
+  });
+</script>
 
-<h1>Operations</h1>
+<p style="color: blue"><%= notice %></p>
 
-<div id="operations">
-  <% @operations.each do |operation| %>
-    <%= render operation %>
-    <p>
-      <%= link_to "Show this operation", operation %>
-    </p>
-  <% end %>
+<div class="row">
+  <div class="col-md-2">
+    Оберіть категорію операції
+  </div>
+  <div class="col">
+    <%= select(:operation, :category_id, @categories, selected: @category_id) %>
+  </div>
 </div>
 
-<%= link_to "New operation", new_operation_path %>
+<br>
+  <table class="table table-striped table-hover">
+    <thead class="table-light">
+      <tr>
+        <th class="col-md-1">Дата</th>
+        <th class="col-md-1">Сума</th>
+        <th class="col-md-6">Опис</th>
+        <th class="col-md-1">Управління</th>
+      </tr>
+    </thead>
+    <tbody>
+      <div id="operations">
+        <% @operations.each do |operation| %>
+          <%= render operation %>
+        <% end %>
+      </div>
+    </tbody>
+  </table>
+
+<%= paginate @operations %>
+
+<%= link_to "Додати нову операцію", new_operation_path(category_id: @category_id), class: "btn btn-outline-primary" %>
+
+
+
+

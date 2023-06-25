@@ -1,22 +1,15 @@
-<div id="<%= dom_id operation %>">
-  <p>
-    <strong>Amount:</strong>
-    <%= operation.amount %>
-  </p>
-
-  <p>
-    <strong>Odate:</strong>
-    <%= operation.odate %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= operation.description %>
-  </p>
-
-  <p>
-    <strong>Category:</strong>
-    <%= operation.category_id %>
-  </p>
-
-</div>
+  <tr>
+    <td><%= operation.odate.strftime("%d-%m-%Y") %></td>  
+    <td><%= operation.amount %></td>  
+    <td><%= operation.description %></td>  
+    <td>
+      <div class="d-flex justify-content-start">
+        <%= link_to edit_operation_path(operation, category_id: operation.category_id), class: "btn btn-sm" do %>
+          <i class="fa fa-pencil fa-fw"></i>
+        <% end %>
+        <%= button_to operation_path(operation), class: "btn btn-sm", method: :delete do %>
+          <i class="fa fa-trash"></i>
+        <% end %> 
+      </div>
+    </td>
+  </tr>
