@@ -1,9 +1,10 @@
+<!-- render new/edit operation form -->
 <%= form_with(model: @operation) do |form| %>
   <%= form.label "Категорія операції", style: "display: block" %>
   <%= select(:operation, :category_id, @categories,  selected: params[:category_id]) %>
   
   <%= form.label "Дата операції", style: "display: block" %>  
-  <%= form.date_field :odate, required: true, value: Date.today, class: "form-text w-10" %> 
+  <%= form.date_field :odate, required: true, class: "form-text w-10" %> 
 
   <%= form.label "Сума", style: "display: block" %>
   <%= form.text_field :amount, required: true, class: "form-text w-25" %>

@@ -1,1 +1,44 @@
-<p class="h2 text-center text-primary">Структура ваших витрати за поточний місяць</p>
+<div class="container-fluid">
+  <div class="h4 text-center text-primary" id="welcome_text">
+    База даних порожня...<br>Створюйте категорії витрат,<br> після цього ви зможете <br>
+    додавати операції <br>в привязці до категорій <br>та формувати звіти...
+  </div>
+  <div id="total_table">
+    <table class="table table-striped table-bordered">
+      <thead class="table-light">
+          <tr>
+            <th class="text-center" colspan="2">Загальна статистика</th>          
+          </tr>
+        </thead>
+      <tbody>
+        <tr>
+          <td class="col-md-2">Кількість категорій</td>
+          <td class="col-md-1"><%= @categories_amount %></td>
+        </tr> 
+        <tr>
+          <td class="col-md-2">Загальна кількість операцій</td>
+          <td class="col-md-1"><%= @operations_amount %></td>
+        </tr> 
+        <tr>
+          <td class="col-md-2">Загальна сума по операціях</td>
+          <td class="col-md-1"><%= @total_amount %></td>
+        </tr>  
+      </tbody>
+    </table>    
+  </div>
+</div>
+
+
+<script>
+  var element = document.getElementById("total_table");
+  var operations_amount = '<%= @operations_amount %>';
+  if ( operations_amount == 0 ) {
+    element.style.display = "none";
+    element = document.getElementById("welcome_text");
+    element.style.visibility = "visible";
+  } else {
+    element.style.visibility = "visible";
+    element = document.getElementById("welcome_text");
+    element.style.display = "none";
+  };
+</script>

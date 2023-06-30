@@ -3,6 +3,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories or /categories.json
   def index
+    # set filter in categories by substring of name from cookies
     sub_name = "%#{cookies[:category_name]}%"
     @categories = Category.where("name LIKE ?", sub_name).page params[:page]
   end
@@ -24,13 +25,12 @@ class CategoriesController < ApplicationController
   # POST /categories or /categories.json
   def create
     @category = Category.new(category_params)
-
     respond_to do |format|
-      if @category.save
-        format.html { redirect_to category_url(@category), notice: "Категорія " + @category.name + " була успішно створена." }
+      if @category.save      
+        format.html { redirect_to category_url(@category), notice: "Категорія '" + @category.name + "' була успішно створена." }
         format.json { render :show, status: :created, location: @category }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to new_category_path, notice: "Нова категорія не створена. Помилка: " + @category.errors.messages.to_s }
         format.json { render json: @category.errors, status: :unprocessable_entity }
       end
     end
@@ -38,13 +38,12 @@ class CategoriesController < ApplicationController
 
   # PATCH/PUT /categories/1 or /categories/1.json
   def update
-
     respond_to do |format|
       if @category.update(category_params)
         format.html { redirect_to category_url(@category), notice: "Категорія " + @category.name + " була успішно змінена." }
         format.json { render :show, status: :ok, location: @category }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { redirect_to edit_category_path(@category), notice: "Категорія " + @category.name + " не змінена. Помилка: " + @category.errors.messages.to_s }
         format.json { render json: @category.errors, status: :unprocessable_entity }
       end
     end

@@ -7,22 +7,26 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 
-Category.create(name: "Харчування", description: "Витрати на їжу")
-Category.create(name: "Дозвілля", description: "Витрати на відпочинок")
-Category.create(name: "Здоров'я", description: "Витрати на оздоровлення")
-Category.create(name: "Автомобіль", description: "Витрати на утримання авто")
-Category.create(name: "Домашні тварини", description: "Витрати на утримання тварин")
+Category.create(name: "Кафе, ресторан", description: "Витрати на харчування в закладах громадського харчування")
+Category.create(name: "Дозвілля", description: "Витрати на відпочинок (кіно, розваги, )")
+Category.create(name: "Здоров'я", description: "Витрати на ліки, медичні послуги")
+Category.create(name: "Автомобіль", description: "Витрати на утримання авто (пальне, запчастини, послуши СТО, мійка)")
+Category.create(name: "Домашні тварини", description: "Витрати на утримання тварин (іжа, іграшки, аксесуари, ветеринарія)")
+Category.create(name: "Продукти", description: "Витрати на продукти харчування")
+Category.create(name: "Подорожі", description: "Витрати на подорожі (квитки, аренда житла, інші витрати під час подорожі)")
+Category.create(name: "Хоббі", description: "Витрати на власне хоббі")
+Category.create(name: "Одяг", description: "Витрати на одяг, взуття, аксесуари")
+Category.create(name: "Навчання", description: "Витрати на власний розвиток, оплата навчання, літератури тощо")
+Category.create(name: "Інші витрати", description: "Непередбачувані, разові витрати, що не відносяться до інших категорій")
 
-Category.create(name: "Зарплата", description: "Доходи від роботи")
-Category.create(name: "Інші доходи", description: "Непередбачувані доходи")
 
-Operation.create(category_id: 1, amount: 10,  odate: "2023-06-14", description: "опис витрат")
-Operation.create(category_id: 1, amount: 120, odate: "2023-06-13", description: "опис витрат")
-Operation.create(category_id: 1, amount: 45,  odate: "2023-06-12", description: "опис витрат")
-Operation.create(category_id: 1, amount: 17,  odate: "2023-06-11", description: "опис витрат")
-Operation.create(category_id: 1, amount: 130, odate: "2023-06-10", description: "опис витрат")
-Operation.create(category_id: 2, amount: 100, odate: "2023-06-15", description: "опис витрат")
-Operation.create(category_id: 2, amount: 190, odate: "2023-06-17", description: "опис витрат")
-Operation.create(category_id: 2, amount: 180, odate: "2023-06-23", description: "опис витрат")
-Operation.create(category_id: 2, amount: 150, odate: "2023-06-26", description: "опис витрат")
-Operation.create(category_id: 2, amount: 200, odate: "2023-06-24", description: "опис витрат")
+500.times do
+  operation = Operation.new(
+    category_id: Faker::Number.within(range: Category.first.id..Category.last.id) ,
+    amount: Faker::Number.within(range: 10..1000) ,
+    odate: Faker::Date.between(from: "2023-03-01", to: Date.today), 
+    description: "тут має бути опис витрат..."
+  )
+  operation.save
+end
+ 

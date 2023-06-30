@@ -1,12 +1,4 @@
-<script>
-  $(document).ready(function() {
-    $('#operation_category_id').change(function() {
-      var selectedValue = $(this).val();
-      window.location.href = "/operations?category_id=" + selectedValue; 
-    });
-  });
-</script>
-
+<!-- main form for operation -->
 <p style="color: blue"><%= notice %></p>
 
 <div class="row">
@@ -42,5 +34,14 @@
 <%= link_to "Додати нову операцію", new_operation_path(category_id: @category_id), class: "btn btn-outline-primary" %>
 
 
+<!-- processing of changing category -->
+<script>
+  $(document).ready(function() {
+    $('#operation_category_id').change(function() {
+      var selectedValue = $(this).val();
+      window.location.href = "/operations?category_id=" + selectedValue; 
+    });
+  });
+</script>
 
 

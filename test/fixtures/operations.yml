@@ -2,12 +2,13 @@
 
 one:
   amount: 9.99
-  odate: 2023-05-25 15:41:13
+  odate: 2023-05-25
   description: MyString
-  category: one
+  category_id: 298486374
+
 
 two:
   amount: 9.99
-  odate: 2023-05-25 15:41:13
+  odate: 2023-05-25
   description: MyString
-  category: two
+  category_id: 298486374

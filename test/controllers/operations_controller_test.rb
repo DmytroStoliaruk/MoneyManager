@@ -19,8 +19,7 @@ class OperationsControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Operation.count") do
       post operations_url, params: { operation: { amount: @operation.amount, category_id: @operation.category_id, description: @operation.description, odate: @operation.odate } }
     end
-
-    assert_redirected_to operation_url(Operation.last)
+    assert_redirected_to operations_path(category_id: @operation.category_id)
   end
 
   test "should show operation" do
@@ -35,14 +34,14 @@ class OperationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update operation" do
     patch operation_url(@operation), params: { operation: { amount: @operation.amount, category_id: @operation.category_id, description: @operation.description, odate: @operation.odate } }
-    assert_redirected_to operation_url(@operation)
+    assert_redirected_to operations_path(category_id: @operation.category_id)
   end
 
   test "should destroy operation" do
     assert_difference("Operation.count", -1) do
       delete operation_url(@operation)
     end
+    assert_redirected_to operations_path(category_id: @operation.category_id)
 
-    assert_redirected_to operations_url
   end
 end

@@ -1,6 +1,7 @@
 <div class="container-fluid">
     <div class="row">
       <div class="col-2">
+        <!-- elements for setting report parameters -->
         <%= form_tag reports_report_by_category_path, method: :get do %>
           <%= label_tag :category_id, "Категорія операцій:", class: "form-text" %>
           <%= select_tag(:category_id, options_from_collection_for_select(@categories, :id, :name, @category_id), class: "form-select-sm col-md-8") %>
@@ -9,7 +10,7 @@
           <%= label_tag :end_date, "Дата кінця періоду:", class: "form-text"%>
           <%= date_field_tag :end_date, params[:end_date], class: "form-text" %>
           <br><br>
-          <%= submit_tag "Звіт по датах", class: "btn btn-outline-primary" %>
+          <%= submit_tag "Згенерувати звіт", class: "btn btn-outline-primary" %>
         <% end %>
       </div>
     
@@ -19,6 +20,7 @@
     </div>
   </div>
 
+<!-- set data for chart -->
 <script>
   const ctx = document.getElementById('myChart');
 
@@ -51,6 +53,5 @@
   };
 
   const myChart = new Chart(ctx, config);
-
 </script>
 

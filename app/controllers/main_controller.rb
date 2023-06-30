@@ -1,5 +1,7 @@
 class MainController < ApplicationController
   def index
-    redirect_to reports_report_by_dates_path(index_page: true)
+    @categories_amount = Category.count
+    @operations_amount = Operation.count
+    @total_amount = Operation.sum(:amount)
   end
 end

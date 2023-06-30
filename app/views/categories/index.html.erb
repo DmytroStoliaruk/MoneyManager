@@ -1,12 +1,12 @@
-
+<!-- main form for categories -->
 <p style="color: blue"><%= notice %></p>
 
 <div class="row">
   <div class="col-md-2">
-    Категорії витрат
+    Категорія витрат
   </div>
   <div class="col">
-    <%= text_field :categories, :name, placeholder: "пошук категорій...", value: cookies[:category_name] %>
+    <%= text_field :categories, :name, placeholder: "пошук категорії...", value: cookies[:category_name] %>
   </div>
 </div>
 
@@ -32,8 +32,8 @@
 
 <%= link_to "Додати нову категорію", new_category_path, class: "btn btn-outline-primary" %>
 
-<script>
-   
+<!-- set filter by substring of name of category. Seeking after adding each symbol -->
+<script>   
   var inputField = document.getElementById('categories_name');
   inputField.selectionStart = inputField.value.length;
   inputField.selectionEnd = inputField.value.length;
@@ -42,6 +42,5 @@
   inputField.addEventListener('input', function(event) {
     document.cookie = "category_name = " + event.target.value;
     window.location.href = "/categories"
-  });  
-  
+  });    
 </script>

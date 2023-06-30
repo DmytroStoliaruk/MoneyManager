@@ -15,6 +15,7 @@ class OperationsController < ApplicationController
   # GET /operations/new
   def new
     @operation = Operation.new
+    @operation.odate = Date.today
   end
  
   # GET /operations/1/edit
@@ -24,16 +25,15 @@ class OperationsController < ApplicationController
   # POST /operations or /operations.json
   def create
     @operation = Operation.new(operation_params)
-
     respond_to do |format|
       if @operation.save
         format.html { redirect_to operations_path(category_id: @operation.category_id), notice: "Операцію було успішно створено." }
         format.json { render :show, status: :created, location: @operation }
-      else
-        format.html { render :new, status: :unprocessable_entity }
+      else    
+        format.html { redirect_to new_operation_path, notice: "Нова операція не створена. Помилка: " + @operation.errors.messages.to_s }
         format.json { render json: @operation.errors, status: :unprocessable_entity }
       end
-    end
+    end    
   end
 
   # PATCH/PUT /operations/1 or /operations/1.json
@@ -43,7 +43,7 @@ class OperationsController < ApplicationController
         format.html { redirect_to operations_path(category_id: @operation.category_id), notice: "Операцію було успішно змінено." }
         format.json { render :show, status: :ok, location: @operation }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { redirect_to edit_operation_path(@operation), notice: "Операція не змінена. Помилка: " + @operation.errors.messages.to_s }
         format.json { render json: @operation.errors, status: :unprocessable_entity }
       end
     end
@@ -65,6 +65,9 @@ class OperationsController < ApplicationController
     end
 
     def set_category
+      if Category.count == 0 
+        return redirect_to root_path
+      end
       @categories = Category.all.map{ |c| [ c.name, c.id ] }
       if params.key?(:category_id)
         @category_id = params[:category_id]

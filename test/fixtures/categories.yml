@@ -1,9 +1,8 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  name: MyString
-  description: MyString
+  name: MyString1
+  description: MyString11
 
 two:
-  name: MyString
-  description: MyString
+  name: MyString2
+  description: MyString22
