@@ -65,6 +65,7 @@ class OperationsController < ApplicationController
     end
 
     def set_category
+      # if database is empty go to main page...
       if Category.count == 0 
         return redirect_to root_path
       end

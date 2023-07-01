@@ -31,14 +31,8 @@ production:
   pool: 5
   username: postgres
   url: <%= ENV["DATABASE_URL"] %>
-  password: bN2DKiH648r2mvP
-  # url: <%= ENV["DATABASE_URL"] %>
-  # password: <%= ENV["HEROKU_DB_PASSWORD"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
   
-  # Username:    postgres
+  # I keep it here temporally :) 
   # Password:    bN2DKiH648r2mvP
-  # Hostname:    pfm-db.internal
-  # Flycast:     fdaa:2:6ea5:0:1::2
-  # Proxy port:  5432
-  # Postgres port:  5433
   # Connection string: postgres://postgres:bN2DKiH648r2mvP@pfm-db.flycast:5432
