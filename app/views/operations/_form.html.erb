@@ -6,8 +6,8 @@
   <%= form.label "Дата операції", style: "display: block" %>  
   <%= form.date_field :odate, required: true, class: "form-text w-10" %> 
 
-  <%= form.label "Сума", style: "display: block" %>
-  <%= form.text_field :amount, required: true, class: "form-text w-25" %>
+  <%= form.label "Сума", style: "display: block"%>
+  <%= form.text_field :amount, required: true, class: "form-text w-25", id: "amount_id" %>
 
   <%= form.label "Опис операції", style: "display: block" %>
   <%= form.text_field :description, required: true, class: "form-text w-75" %>
@@ -18,4 +18,9 @@
   <%= link_to 'Відмовитися', operations_path(category_id: params[:category_id]), class: 'btn btn-outline-primary' %>
 <% end %>
 
+<!-- set focus on amount element -->
+<script>   
+  var inputField = document.getElementById("amount_id");
+  inputField.focus();
+</script>
 

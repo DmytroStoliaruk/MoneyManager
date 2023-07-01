@@ -1,13 +1,11 @@
 <!-- main form for operation -->
 <p style="color: blue"><%= notice %></p>
 
-<div class="row">
-  <div class="col-md-2">
-    Оберіть категорію операції
-  </div>
-  <div class="col">
-    <%= select(:operation, :category_id, @categories, selected: @category_id) %>
-  </div>
+<div class="h2 text-center text-primary">
+  Ведення переліку операцій по категорії '<%= @category_name %>'
+</div>
+<div>
+  Оберіть потрібну категорію <%= select(:operation, :category_id, @categories, selected: @category_id) %> 
 </div>
 
 <br>
@@ -37,7 +35,7 @@
 <!-- processing of changing category -->
 <script>
   $(document).ready(function() {
-    $('#operation_category_id').change(function() {
+    $("#operation_category_id").change(function() {
       var selectedValue = $(this).val();
       window.location.href = "/operations?category_id=" + selectedValue; 
     });

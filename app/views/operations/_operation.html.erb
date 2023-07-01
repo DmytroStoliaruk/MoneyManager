@@ -1,7 +1,7 @@
   <!-- rendering of operation table rows -->
   <tr>
     <td><%= operation.odate.strftime("%d-%m-%Y") %></td>  
-    <td><%= operation.amount %></td>  
+    <td class="text-end"><%= sprintf('%.2f', operation.amount) %></td>  
     <td><%= operation.description %></td>  
     <td>
       <div class="d-flex justify-content-start">

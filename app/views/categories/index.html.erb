@@ -1,14 +1,13 @@
 <!-- main form for categories -->
 <p style="color: blue"><%= notice %></p>
 
-<div class="row">
-  <div class="col-md-2">
-    Категорія витрат
-  </div>
-  <div class="col">
-    <%= text_field :categories, :name, placeholder: "пошук категорії...", value: cookies[:category_name] %>
-  </div>
+<div class="h2 text-center text-primary">
+  Ведення переліку категорій
 </div>
+<div>
+  Пошук категорії витрат <%= text_field :categories, :name, placeholder: "пошук категорії...", value: cookies[:category_name] %>
+</div>
+ 
 
 <br>
   <table class="table table-striped table-hover">

@@ -20,12 +20,12 @@ Category.create(name: "Навчання", description: "Витрати на вл
 Category.create(name: "Інші витрати", description: "Непередбачувані, разові витрати, що не відносяться до інших категорій")
 
 
-500.times do
+200.times do
   operation = Operation.new(
     category_id: Faker::Number.within(range: Category.first.id..Category.last.id) ,
     amount: Faker::Number.within(range: 10..1000) ,
-    odate: Faker::Date.between(from: "2023-03-01", to: Date.today), 
-    description: "тут має бути опис витрат..."
+    odate: Faker::Date.between(from: "2023-04-01", to: Date.today), 
+    description: "ці кошти були витрачені за призначенням..."
   )
   operation.save
 end

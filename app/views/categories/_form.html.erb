@@ -2,7 +2,7 @@
 <%= form_with(model: @category) do |form| %>
 
   <%= form.label "Назва категорії ", style: "display: block" %>   
-  <%= form.text_field :name, required: true, class: "form-text w-25" %>
+  <%= form.text_field :name, required: true, class: "form-text w-25", id: "name_id" %>
 
   <%= form.label "Опис категорії ", style: "display: block" %>
   <%= form.text_field :description, required: true, class: "form-text w-75" %>
@@ -11,3 +11,9 @@
   <%= form.submit "Зберегти", class: "btn btn-outline-primary" %>
   <%= link_to 'Відмовитися', categories_path, class: 'btn btn-outline-primary' %>
 <% end %>
+
+<!-- set focus on catecory name element -->
+<script>   
+  var inputField = document.getElementById("name_id");
+  inputField.focus();
+</script>

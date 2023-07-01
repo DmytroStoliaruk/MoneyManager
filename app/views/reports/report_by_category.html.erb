@@ -1,3 +1,7 @@
+<div class="h2 text-center text-primary">
+  Графік витрат по категорії ' <%= @categories.where(id: @category_id).first.name %>' 
+  на загальну суму <%= @total_amount_by_category.to_i %> грн.
+</div>
 <div class="container-fluid">
     <div class="row">
       <div class="col-2">
@@ -43,10 +47,7 @@
           display: false
         },
         title: {
-          display: true,
-          text: 'Витрати по категорії "<%= @categories.where(id: @category_id).first.name %>" за період ' + 
-                'з <%= params[:start_date] %> по <%= params[:end_date] %>, ' +
-                ' загальна сума по категорії - <%= @total_amount_by_category %> грн.'
+          display: false,
         }
       }
     }

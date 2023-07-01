@@ -53,7 +53,7 @@ class OperationsController < ApplicationController
   def destroy
     @operation.destroy
     respond_to do |format|
-      format.html { redirect_to operations_path(category_id: @operation.category_id), notice: "Operation was successfully destroyed." }
+      format.html { redirect_to operations_path(category_id: @operation.category_id), notice: "Операцію було успішно в далено..." }
       format.json { head :no_content }
     end
   end
@@ -69,12 +69,14 @@ class OperationsController < ApplicationController
       if Category.count == 0 
         return redirect_to root_path
       end
-      @categories = Category.all.map{ |c| [ c.name, c.id ] }
+
       if params.key?(:category_id)
         @category_id = params[:category_id]
       else
         @category_id = Category.first.id
       end  
+      @categories = Category.all.map{ |c| [ c.name, c.id ] }
+      @category_name = Category.find_by(id: @category_id).name
     end
 
     # Only allow a list of trusted parameters through.
