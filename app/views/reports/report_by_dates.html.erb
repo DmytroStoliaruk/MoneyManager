@@ -1,11 +1,9 @@
-<div class="h2 text-center text-primary">
-  Графік витрат в розрізі категорій
-</div>
 <div class="container-fluid">
     <div class="row">
       <div class="col-3">
         <div id="form_area_id">
           <!-- elements for setting report parameters -->
+          <br><br>
           <%= form_tag reports_report_by_dates_path, method: :get do %>
             <%= label_tag :start_date, "Дата початку періоду:", class: "form-text" %>
             <%= date_field_tag :start_date, params[:start_date], class: "form-text" %>
@@ -21,17 +19,18 @@
                 <th class="col-md-4">Категорія</th>
                 <th class="col-md-1">Сума</th>
               </tr>
-            </thead>
+            </thead> 
             <tbody>
               <div id="operations_by_categories">
                 <% @operations_by_categories.each do |o| %>
                 <tr>
                   <td><%= o[0] %></td>
-                  <td><%= o[1] %></td>  
+                  <td class="text-end"><%= sprintf('%.2f', o[1]) %></td>  
                 </tr>
                 <% end %>
                 <tr>
-                  <td colspan="2"><b>Всього: <%= @total_sum_amount_by_date %> грн.</b></td>
+                  <td class="fw-bold">Всього:</td>
+                  <td class="fw-bold text-end"><%= sprintf('%.2f', @total_sum_amount_by_date) %></td>
                 </tr>
               </div>
             </tbody>
@@ -40,52 +39,15 @@
       </div>
 
       <div class="col-9">
-        <canvas id="myChart"></canvas>
+         <%= render "report_chart", locals: {chart_title: "Витрати за період в розрізі категорій", 
+                                            chart_type: "pie", 
+                                            chart_legend_visible: true,
+                                            chart_number_colors: @category_name.count,
+                                            chart_labels: @category_name,
+                                            chart_data: @sum_amount
+                                            } %>
       </div>
     </div>
   </div>
 
-<!-- set data for chart -->
-<script>
-  const ctx = document.getElementById('myChart');
-  
-  var backgroundColors = generateRandomColors(<%= raw @category_name.count %>);
-
-  const data = {
-    labels: <%= raw @category_name %>,
-    datasets: [{
-      data: <%= @sum_amount %>,
-      backgroundColor: backgroundColors,
-    }]
-  };
-
-  const config = {
-    type: 'pie',
-    data: data,
-    options: {
-      responsive: true,
-      aspectRatio: 2,
-      plugins: {
-        legend: {
-          position: 'right',
-        },
-        title: {
-          display: false,
-        }
-      }
-    }
-  };
-
-  const myChart = new Chart(ctx, config);
-
-
-  function generateRandomColors(count) {
-    var colors = [];
-    for (var i = 0; i < count; i++) {
-      var color = '#' + Math.floor(Math.random() * 16777215).toString(16);
-      colors.push(color);
-    }
-    return colors;
-  };
-</script>
 

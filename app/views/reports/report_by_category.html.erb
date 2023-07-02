@@ -1,11 +1,8 @@
-<div class="h2 text-center text-primary">
-  Графік витрат по категорії ' <%= @categories.where(id: @category_id).first.name %>' 
-  на загальну суму <%= @total_amount_by_category.to_i %> грн.
-</div>
 <div class="container-fluid">
     <div class="row">
       <div class="col-2">
         <!-- elements for setting report parameters -->
+        <br><br>
         <%= form_tag reports_report_by_category_path, method: :get do %>
           <%= label_tag :category_id, "Категорія операцій:", class: "form-text" %>
           <%= select_tag(:category_id, options_from_collection_for_select(@categories, :id, :name, @category_id), class: "form-select-sm col-md-8") %>
@@ -18,41 +15,15 @@
         <% end %>
       </div>
     
-      <div class="col-10">
-        <canvas id="myChart"></canvas>
+      <div class="col-9">
+        <%= render "report_chart", locals: {chart_title: "Витрати по категорії '" + @categories.where(id: @category_id).first.name + "'
+                                                         на суму " + sprintf('%.2f',@total_amount_by_category).to_s + " грн.", 
+                                            chart_type: "bar", 
+                                            chart_legend_visible: false,
+                                            chart_number_colors: 1,
+                                            chart_labels: @dates,
+                                            chart_data: @amount } %>
       </div>
     </div>
   </div>
-
-<!-- set data for chart -->
-<script>
-  const ctx = document.getElementById('myChart');
-
-  const data = {
-    labels: <%= raw @dates %>,
-    datasets: [{
-      label: '',
-      data: <%= @amount %>,
-      backgroundColor: ['blue'],
-    }]
-  };
-
-  const config = {
-    type: 'bar',
-    data: data,
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          display: false
-        },
-        title: {
-          display: false,
-        }
-      }
-    }
-  };
-
-  const myChart = new Chart(ctx, config);
-</script>
-
+</div>

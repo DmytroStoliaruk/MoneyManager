@@ -1,0 +1,52 @@
+<div class="h2 text-primary">
+  <%= locals[:chart_title] %>
+</div>
+  
+<div>
+  <canvas id="commonChart"></canvas>
+</div>
+   
+<!-- set data for chart -->
+<script>
+  const ctx = document.getElementById('commonChart');
+  
+  var backgroundColors = generateRandomColors(<%= locals[:chart_number_colors] %>);
+
+  const data = {
+    labels: <%= raw locals[:chart_labels] %>,
+    datasets: [{
+      data: <%= locals[:chart_data] %>,
+      backgroundColor: backgroundColors,
+    }]
+  };
+
+  const config = {
+    type: "<%= locals[:chart_type] %>",
+    data: data,
+    options: {
+      responsive: true,
+      aspectRatio: 1.5,
+      plugins: {
+        legend: {
+          position: 'right',
+          display: <%= locals[:chart_legend_visible] %>
+        },
+        title: {
+          display: false,
+        }
+      }
+    }
+  };
+
+  const commonChart = new Chart(ctx, config);
+
+
+  function generateRandomColors(count) {
+    var colors = [];
+    for (var i = 0; i < count; i++) {
+      var color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+      colors.push(color);
+    }
+    return colors;
+  };
+</script>

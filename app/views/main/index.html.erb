@@ -3,7 +3,18 @@
     База даних порожня...<br>Створюйте категорії витрат,<br> після цього ви зможете <br>
     додавати операції <br>в привязці до категорій <br>та формувати звіти...
   </div>
-  <div id="total_table" class="w-50 d-block mx-auto">
+  
+  <div id="summary_table">
+  <div class="w-50 d-block mx-auto">
+    <div>
+      <%= render "/reports/report_chart", locals: {chart_title: "Всі витрати в розрізі категорій", 
+                                          chart_type: "pie", 
+                                          chart_legend_visible: true,
+                                          chart_number_colors: @category_name.count,
+                                          chart_labels: @category_name,
+                                          chart_data: @sum_amount
+                                          } %>
+    </div>
     <table class="table table-striped table-bordered">
       <thead class="table-light">
           <tr>
@@ -26,11 +37,11 @@
       </tbody>
     </table>    
   </div>
+  </div>
 </div>
 
-
 <script>
-  var element = document.getElementById("total_table");
+  var element = document.getElementById("summary_table");
   var operations_amount = '<%= @operations_amount %>';
   if ( operations_amount == 0 ) {
     element.style.display = "none";

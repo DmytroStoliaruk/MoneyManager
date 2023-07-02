@@ -18,7 +18,7 @@ class ReportsController < ApplicationController
   def report_by_dates
     @operations_by_categories = Operation.select('SUM(operations.amount) AS sum_amount, categories.name AS category_name').
                  joins(:category).group(:category_name).where(odate: params[:start_date]..params[:end_date]).
-                 map { |o| [o.category_name, o.sum_amount] }               
+                 map { |o| [o.category_name, o.sum_amount] }   
     @total_sum_amount_by_date = Operation.where(odate: params[:start_date]..params[:end_date]).sum(:amount)
     @category_name = @operations_by_categories.map { |o| o[0] }
     @sum_amount = @operations_by_categories.map { |o| o[1] }
@@ -43,7 +43,7 @@ class ReportsController < ApplicationController
     def set_dates
       if !params.key?(:start_date)
         # set date params dy default (current month)
-        params[:start_date] = (Date.today - Date.today.day + 1).to_s
+        params[:start_date] = (Date.today -  30).to_s
         params[:end_date] = Date.today.to_s
       end
     end
