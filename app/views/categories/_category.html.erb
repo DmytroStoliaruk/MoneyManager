@@ -7,14 +7,14 @@
     <td><%= category.description %></td>  
     <td>
     <div class="d-flex justify-content-start">
-      <%= link_to edit_category_path(category, page: params[:page]), title: "Редагувати категорію", class: "btn btn-sm" do %>
+      <%= link_to edit_category_path(category), title: "Редагувати категорію", class: "btn btn-sm" do %>
         <i class="fa fa-pencil fa-fw"></i>
       <% end %>
-      <%= button_to category_path(category, page: params[:page]), title: "Видалити категорію", class: "btn btn-sm", method: :delete do %>
+      <%= button_to category_path(category), title: "Видалити категорію", class: "btn btn-sm", method: :delete do %>
         <i class="fa fa-trash"></i>
       <% end %> 
     </div>
     </td>
   </tr>
 
- 
+

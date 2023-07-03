@@ -5,11 +5,11 @@
     <td><%= operation.description %></td>  
     <td>
       <div class="d-flex justify-content-start">
-        <%= link_to edit_operation_path(operation, category_id: operation.category_id, page: params[:page]), 
+        <%= link_to edit_operation_path(operation, category_id: operation.category_id), 
                     title: "Редагувати операцію", class: "btn btn-sm" do %>
           <i class="fa fa-pencil fa-fw"></i>
         <% end %>
-        <%= button_to operation_path(operation, page: params[:page]), class: "btn btn-sm", title: "Видалити операцію", method: :delete do %>
+        <%= button_to operation_path(operation), class: "btn btn-sm", title: "Видалити операцію", method: :delete do %>
           <i class="fa fa-trash"></i>
         <% end %> 
       </div>

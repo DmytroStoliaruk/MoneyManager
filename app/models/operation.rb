@@ -4,6 +4,5 @@ class Operation < ApplicationRecord
   validates :odate, presence: true
   validates :description, presence: true
 
-  # set paginates_per from global variable (init in main_controller)
-  paginates_per $global_paginates_per
+  paginates_per 7
 end

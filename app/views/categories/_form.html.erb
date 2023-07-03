@@ -8,9 +8,8 @@
   <%= form.text_field :description, required: true, class: "form-text w-75" %>
   <br>
   <br>
-  <%= hidden_field_tag :page, params[:page] %>
   <%= form.submit "Зберегти", class: "btn btn-outline-primary" %>
-  <%= link_to 'Відмовитися', categories_path(page: params[:page]), class: 'btn btn-outline-primary' %>
+  <%= link_to 'Відмовитися', categories_path, class: 'btn btn-outline-primary' %>
 <% end %>
 
 <!-- set focus on catecory name element -->

@@ -14,7 +14,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1 or /categories/1.json
   def show
-    redirect_to categories_path(page: params[:page])
+    redirect_to categories_path
   end
 
   # GET /categories/new
@@ -31,12 +31,7 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params)
     respond_to do |format|
       if @category.save      
-        # correct current page if deleted last record on this page
-        @count = Category.count
-        if @count % $global_paginates_per == 1
-          params[:page] = (params[:page].to_i + 1).to_s
-        end
-        format.html { redirect_to category_url(@category, page: params[:page]), notice: "Категорія '" + @category.name + "' була успішно створена." }
+        format.html { redirect_to category_url(@category), notice: "Категорія '" + @category.name + "' була успішно створена." }
         format.json { render :show, status: :created, location: @category }
       else
         format.html { redirect_to new_category_path, notice: "Нова категорія не створена. Помилка: " + @category.errors.messages.to_s }
@@ -49,10 +44,10 @@ class CategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @category.update(category_params)
-        format.html { redirect_to category_url(@category, page: params[:page]), notice: "Категорія " + @category.name + " була успішно змінена." }
+        format.html { redirect_to category_url(@category), notice: "Категорія " + @category.name + " була успішно змінена." }
         format.json { render :show, status: :ok, location: @category }
       else
-        format.html { redirect_to edit_category_path(@category, page: params[:page]), notice: "Категорія " + @category.name + " не змінена. Помилка: " + @category.errors.messages.to_s }
+        format.html { redirect_to edit_category_path(@category), notice: "Категорія " + @category.name + " не змінена. Помилка: " + @category.errors.messages.to_s }
         format.json { render json: @category.errors, status: :unprocessable_entity }
       end
     end
@@ -65,13 +60,8 @@ class CategoriesController < ApplicationController
     rescue => exception
       redirect_to categories_url, notice: "Категорія " + @category.name + " не може бути вилучена поки не видалені всі операції по цій категорії."
     else 
-      # correct current page if deleted last record on this page
-      @count = Category.count
-      if @count % $global_paginates_per == 0
-        params[:page] = (params[:page].to_i - 1).to_s
-      end
       respond_to do |format|
-        format.html { redirect_to categories_url(page: params[:page]), notice: "Категорія " + @category.name + " була успішно вилучена." }
+        format.html { redirect_to categories_url, notice: "Категорія " + @category.name + " була успішно вилучена." }
         format.json { head :no_content }
       end
     end

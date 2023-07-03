@@ -8,7 +8,7 @@
   Пошук категорії витрат <%= text_field :categories, :name, placeholder: "пошук категорії...", value: params[:category_sub_name] %>
 </div>
  
- 
+
 <br>
   <table class="table table-striped table-hover">
     <thead class="table-light">
@@ -29,7 +29,7 @@
 
   <%= paginate @categories %>
 
-<%= link_to "Додати нову категорію", new_category_path(page: params[:page]), class: "btn btn-outline-primary" %>
+<%= link_to "Додати нову категорію", new_category_path, class: "btn btn-outline-primary" %>
 
 <!-- set filter by substring of name of category. Seeking after adding each symbol -->
 <script>   
