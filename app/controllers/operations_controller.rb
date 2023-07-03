@@ -4,7 +4,7 @@ class OperationsController < ApplicationController
 
   # GET /operations or /operations.json
   def index
-    @operations = Operation.where(category_id: @category_id).order(:odate).page params[:page]
+    @operations = Operation.where(category_id: @category_id).order(:odate).reverse_order.page params[:page]
   end
 
   # GET /operations/1 or /operations/1.json
