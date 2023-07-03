@@ -1,5 +1,6 @@
 class MainController < ApplicationController
   def index
+    # get data for rendering main page  
     @categories_amount = Category.count
     @operations_amount = Operation.count
     @total_amount = Operation.sum(:amount)

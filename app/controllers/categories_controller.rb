@@ -3,8 +3,12 @@ class CategoriesController < ApplicationController
 
   # GET /categories or /categories.json
   def index
-    # set filter in categories by substring of name from cookies
-    sub_name = "%#{cookies[:category_name]}%"
+    # set filter in categories by substring of name 
+    if params.key?(:category_sub_name) 
+      sub_name = params[:category_sub_name] + "%"
+    else
+      sub_name = "%"
+    end
     @categories = Category.where("name LIKE ?", sub_name).page params[:page]
   end
 
