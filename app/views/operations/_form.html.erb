@@ -13,9 +13,9 @@
   <%= form.text_field :description, required: true, class: "form-text w-75" %>
   <br>
   <br>
-  
+  <%= hidden_field_tag :page, params[:page] %>
   <%= form.submit "Зберегти", class: "btn btn-outline-primary" %>
-  <%= link_to 'Відмовитися', operations_path(category_id: params[:category_id]), class: 'btn btn-outline-primary' %>
+  <%= link_to 'Відмовитися', operations_path(category_id: params[:category_id], page: params[:page]), class: 'btn btn-outline-primary' %>
 <% end %>
 
 <!-- set focus on amount element -->

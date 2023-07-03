@@ -7,6 +7,12 @@ class ReportsController < ApplicationController
   end
 
   def report_by_category   
+    # if no operation - no reports
+    if Operation.count == 0
+      redirect_to root_path
+    end
+
+    # prepare data for report
     operations = Operation.where(odate: params[:start_date]..params[:end_date]).
                            where(category_id: params[:category_id])                                      
     @total_amount_by_category = operations.sum(:amount)
@@ -16,6 +22,12 @@ class ReportsController < ApplicationController
   end
 
   def report_by_dates
+    # if no operation - no reports
+    if Operation.count == 0
+      redirect_to root_path
+    end
+
+    # prepare data for report
     @operations_by_categories = Operation.select('SUM(operations.amount) AS sum_amount, categories.name AS category_name').
                  joins(:category).group(:category_name).where(odate: params[:start_date]..params[:end_date]).
                  map { |o| [o.category_name, o.sum_amount] }   

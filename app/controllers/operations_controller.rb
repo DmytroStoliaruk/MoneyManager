@@ -27,7 +27,13 @@ class OperationsController < ApplicationController
     @operation = Operation.new(operation_params)
     respond_to do |format|
       if @operation.save
-        format.html { redirect_to operations_path(category_id: @operation.category_id), notice: "Операцію було успішно створено." }
+        # correct current page if deleted last record on this page
+        @count = Operation.where(category_id: @operation.category_id).count
+        if @count % $global_paginates_per == 1
+          params[:page] = (params[:page].to_i + 1).to_s
+        end
+
+        format.html { redirect_to operations_path(category_id: @operation.category_id, page: params[:page]), notice: "Операцію було успішно створено." }
         format.json { render :show, status: :created, location: @operation }
       else    
         format.html { redirect_to new_operation_path, notice: "Нова операція не створена. Помилка: " + @operation.errors.messages.to_s }
@@ -40,20 +46,26 @@ class OperationsController < ApplicationController
   def update
     respond_to do |format|
       if @operation.update(operation_params)
-        format.html { redirect_to operations_path(category_id: @operation.category_id), notice: "Операцію було успішно змінено." }
+        format.html { redirect_to operations_path(category_id: @operation.category_id, page: params[:page]), notice: "Операцію було успішно змінено." }
         format.json { render :show, status: :ok, location: @operation }
       else
-        format.html { redirect_to edit_operation_path(@operation), notice: "Операція не змінена. Помилка: " + @operation.errors.messages.to_s }
+        format.html { redirect_to edit_operation_path(@operation, page: params[:page]), notice: "Операція не змінена. Помилка: " + @operation.errors.messages.to_s }
         format.json { render json: @operation.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /operations/1 or /operations/1.json
-  def destroy
+  def destroy 
+    # correct current page if deleted last record on this page
+    @count = Operation.where(category_id: @operation.category_id).count
+    if @count % $global_paginates_per == 1
+      params[:page] = (params[:page].to_i - 1).to_s
+    end
+   
     @operation.destroy
     respond_to do |format|
-      format.html { redirect_to operations_path(category_id: @operation.category_id), notice: "Операцію було успішно в далено..." }
+      format.html { redirect_to operations_path(category_id: @operation.category_id, page: params[:page]), notice: "Операцію було успішно видалено..." }
       format.json { head :no_content }
     end
   end

@@ -9,5 +9,8 @@ class MainController < ApplicationController
                                                 map { |o| [o.category_name, o.sum_amount] }   
     @category_name = @operations_by_categories.map { |o| o[0] }
     @sum_amount = @operations_by_categories.map { |o| o[1] }
+
+    # set global value paginates_per
+    $global_paginates_per = 7
   end
 end
