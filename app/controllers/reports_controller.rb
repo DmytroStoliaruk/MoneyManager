@@ -35,7 +35,7 @@ class ReportsController < ApplicationController
         @category_id = params[:category_id]
       else
         # set first category as active by default
-        @category_id = Category.first.id     
+        @category_id = @categories.first.id     
         params[:category_id] = @category_id
       end 
     end
